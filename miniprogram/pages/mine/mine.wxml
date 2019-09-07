@@ -1,0 +1,17 @@
+<view>
+  <view class="container">
+      <view class="info">
+        <image src="{{faceUrl}}" class="face" bindtap="chooseFace"></image>
+        <label class="nickname">{{nickname}}</label>
+      </view>
+      <view class="btn-box">
+        <button size="mini" class="primary" bindtap="uploadVideo">上传作品</button>
+        <button size="mini" class="primary" plain="true" bindtap="logout">注销</button>
+      </view>
+      <view class="info-detail">
+        <label class="info-item">{{fansCount}}粉丝</label>
+        <label class="info-item">{{receiveLikeCounts}}获赞</label>
+        <label class="info-item">{{followCounts}}关注</label>
+      </view>
+  </view>
+</view>
