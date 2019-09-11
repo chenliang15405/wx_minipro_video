@@ -1,0 +1,27 @@
+.bgmContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.check-select {
+  margin-left: 20px;
+}
+.inputView {
+    margin-top: 20px;
+    padding: 5px;
+    background-color: white;
+    line-height: 45px;
+    border: solid 1px whitesmoke;
+}
+.inputText {
+    float: right;
+    text-align: right;
+    margin-right: 22px;
+    margin-top: 11px;
+    font-size: 15px;
+}
+.btn {
+  width: 80%;
+  margin-top: 20px;
+}

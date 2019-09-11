@@ -8,10 +8,15 @@
 .input-view {
   display: flex;
   flex-direction: row;
+  align-items: center;
   border-bottom: 1rpx solid #ccc;
-  padding: 5px;
+  padding: 10px;
 }
-
+.input-icon {
+  width: 25px;
+  height: 25px;
+  margin-right:5px;
+}
 .btn-item {
   margin: 30px
 }

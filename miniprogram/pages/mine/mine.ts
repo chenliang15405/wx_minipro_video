@@ -36,9 +36,10 @@ Page({
       },
       success(res): void {
         wx.hideLoading()
-        const userInfo:any = res.data.data
+        const {data}: any = res.data
+        const userInfo:any = data
         console.log('load..', userInfo)
-        if (res.data.status == 200) {
+        if (data.status == 200) {
           if(!userInfo.faceImage) {
             userInfo.faceImage = _this.data.faceUrl
           } else {
@@ -49,7 +50,7 @@ Page({
           _this.setData!({
             faceUrl: userInfo.faceImage,
             nickname: userInfo.nickname,
-            fansCount: userInfo.fansCounts,
+            fansCounts: userInfo.fansCounts,
             receiveLikeCounts: userInfo.receiveLikeCounts,
             followCounts: userInfo.followCounts
           })
@@ -103,7 +104,38 @@ Page({
     })
   },
   uploadVideo(): void {
-    
+    // 微信上传视频APi，可以获取到视频的多个信息数据，并返回临时路径
+    wx.chooseVideo({
+      sourceType: ['album','camera'],
+      camera: 'back',
+      success(res: any) {
+        console.log(res)
+        const duration:number = res.duration
+        const tempHeight: number = res.height
+        const tempWidth: number = res.width
+        const tempFilePath: string = res.tempFilePath
+        const thumbTempFilePath: string = res.thumbTempFilePath
+        // 判断
+        if(duration > 11) {
+          wx.showToast({
+            title: '视频长度不能超过10s...',
+            icon: 'none',
+            duration: 2000
+          })
+        } else if(duration < 1) {
+          wx.showToast({
+          title: '视频长度太短',
+          icon: 'none',
+          duration: 2000
+          })
+        } else {
+          // 进入选择bgm页面，携带视频的参数信息
+          wx.navigateTo({
+            url: `/pages/bgm/bgm?duration=${duration}&tempHeight=${tempHeight}&tempWidth=${tempWidth}&tempFilePath=${tempFilePath}&tempConverPath=${thumbTempFilePath}`
+          })
+        }
+      }
+    })
   },
   logout(): void {
     wx.showLoading({

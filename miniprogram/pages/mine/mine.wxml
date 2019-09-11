@@ -9,7 +9,7 @@
         <button size="mini" class="primary" plain="true" bindtap="logout">注销</button>
       </view>
       <view class="info-detail">
-        <label class="info-item">{{fansCount}}粉丝</label>
+        <label class="info-item">{{fansCounts}}粉丝</label>
         <label class="info-item">{{receiveLikeCounts}}获赞</label>
         <label class="info-item">{{followCounts}}关注</label>
       </view>

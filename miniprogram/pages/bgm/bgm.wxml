@@ -1,0 +1,22 @@
+<view>
+  <form bindsubmit="uploadVideo">
+ 
+ <!-- name属性，在表单提交时间触发时，可以通过e获取到每个name对应的值 -->
+    <radio-group name="bgmId">
+      <block wx:for="{{bgmList}}" wx:key="item.id">
+        <view class="bgmContainer">
+          <audio name="{{item.name}}" author="{{item.author}}" src="{{serverUrl}}{{item.path}}" id="myAudio" controls loop style="width:300px;"></audio>
+          <radio class="check-select" value="{{item.id}}"></radio>
+        </view>
+      </block>
+    </radio-group>
+
+    <view class="inputView">
+      <label>视频描述：</label>
+      <input name="desc" class="inputText" placeholder="说点什么吧"/>
+    </view>
+
+    <button class="btn" type="primary" form-type="submit">上传视频</button>
+    <button class="btn" type="warn" form-type="reset">重置</button>
+  </form>
+</view>
