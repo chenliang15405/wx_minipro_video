@@ -1,13 +1,16 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+<view wx:for="{{videoList}}" wx:key="unique" class="index-container">
+  
+  <view class="video-cover-box">
+    <image style='width:{{screenWidth}}px;height:220px;' mode='aspectFit'  src="{{serverUrl}}{{item.coverPath}}"></image>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+
+  <view class="desc">
+    <view class="user-face">
+      <image class="avatar" src="{{serverUrl}}{{item.faceImage}}"></image>
+      <view class="name">
+        <text class="nickname">{{item.nickname}}</text>
+      </view>
+    </view>
   </view>
+
 </view>

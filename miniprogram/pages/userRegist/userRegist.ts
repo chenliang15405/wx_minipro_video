@@ -36,7 +36,8 @@ Page({
               icon: "none",
               duration: 3000
             })
-            app.userInfo = data
+            // app.userInfo = data
+            app.setGlobalUserInfo(data)
           }else {
             wx.showToast({
               title: msg,

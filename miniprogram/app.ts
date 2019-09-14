@@ -5,7 +5,9 @@ export interface IMyApp {
     userInfo?: wx.UserInfo
   },
   serverUrl: string
-  userInfo: any
+  userInfo: any,
+  setGlobalUserInfo(user: any): void,
+  getGlobalUserInfo(): any
 }
 
 App<IMyApp>({
@@ -45,5 +47,11 @@ App<IMyApp>({
     })
   },
   globalData: {
+  },
+  setGlobalUserInfo(user: any): void {
+    wx.setStorageSync("userInfo", user)
+  },
+  getGlobalUserInfo(): any {
+    return wx.getStorageSync("userInfo")
   }
 })

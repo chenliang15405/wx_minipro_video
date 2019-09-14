@@ -41,7 +41,8 @@ Page({
               duration: 3000
             })
             console.log(data)
-            app.userInfo = data
+            // app.userInfo = data
+            app.setGlobalUserInfo(data)
             // 跳转页面
             wx.navigateTo({
               url: '/pages/mine/mine'

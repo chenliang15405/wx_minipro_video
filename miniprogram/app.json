@@ -1,10 +1,12 @@
 {
   "pages": [
-    "pages/userLogin/userLogin",
+    "pages/videoInfo/videoInfo",
+    "pages/index/index",
+    "pages/userLogin/userLogin",     
     "pages/bgm/bgm",
     "pages/mine/mine",
     "pages/userRegist/userRegist",
-    "pages/index/index"
+    "pages/searchVideo/searchVideo"
   ],
   "window": {
     "backgroundTextStyle": "light",

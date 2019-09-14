@@ -27,7 +27,7 @@ Page({
       title: 'Loading...'
     })
     wx.request({
-      url: app.serverUrl + "/user/query?userId=" + app.userInfo.id,
+      url: app.serverUrl + "/user/query?userId=" + app.getGlobalUserInfo().id,
       method: "GET",
       data: {
       },
@@ -74,7 +74,7 @@ Page({
         })
         // 调用微信的上传图片api,可以获取到图片信息，然后调用uploadAPI，上传图片到服务端
         wx.uploadFile({
-          url: app.serverUrl + "/user/uploadFace?userId=" + app.userInfo.id,
+          url: app.serverUrl + "/user/uploadFace?userId=" + app.getGlobalUserInfo().id,
           filePath: tempFilePaths[0],
           name: 'file',
           success(res: any) {
@@ -159,7 +159,9 @@ Page({
             icon: "success",
             duration: 3000
           })
-          app.userInfo = {}
+          // app.userInfo = {}
+          // 清除缓存
+          wx.removeStorageSync("userInfo")
           // 跳转页面
           wx.redirectTo({
             url: '/pages/userLogin/userLogin'

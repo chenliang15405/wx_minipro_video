@@ -1,0 +1,68 @@
+page {
+  height: 100%;
+  width: 100%;
+}
+.videoinfo-container {
+  width: 100%;
+  height: 100%;
+}
+
+.cover-view-container {
+  height: 50rpx;
+  display: flex;
+  justify-content: space-between;
+  margin: 30rpx 30rpx;
+}
+.cover-view-container .cover-view-image-icon {
+  width: 50rpx;
+  height: 50rpx;
+}
+.cover-view-left {
+  margin-left: 50rpx;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50%;
+}
+.cover-view-left .left-img-size {
+  width: 50rpx;
+  height: 50rpx;
+  margin-top: 30rpx;
+  display: block;
+}
+.cover-view-left .left-face {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  animation: music_disc 4s linear infinite;
+}
+
+.cover-view-words {
+  margin: 50rpx 50rpx;
+  color: #fff;
+}
+
+
+/* 头像一直旋转 */
+.left-face:hover {
+  transform: rotate(666turn);
+  transition-delay: 0.5s;
+  transition-property: all;
+  transition-duration: 59s;
+  transition-timing-function: cubic-bezier(.34,0,.84,1);
+}
+
+
+@keyframes music_disc {
+  0% {
+      -webkit-transform: rotate(0deg);
+      -ms-transform: rotate(0deg);
+      -o-transform: rotate(0deg);
+      transform: rotate(0deg);
+    }
+  100% {
+      -webkit-transform: rotate(360deg);
+      -ms-transform: rotate(360deg);
+      -o-transform: rotate(360deg);
+      transform: rotate(360deg);
+  }
+}

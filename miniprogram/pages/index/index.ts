@@ -1,4 +1,3 @@
-//index.js
 //获取应用实例
 import { IMyApp } from '../../app'
 
@@ -6,52 +5,73 @@ const app = getApp<IMyApp>()
 
 Page({
   data: {
-    motto: '点击 “编译” 以构建',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
-  },
-  //事件处理函数
-  bindViewTap() {
-    wx.navigateTo({
-      url: '../logs/logs'
-    })
+    screenWidth: 554,
+    page: 1,
+    totalPages: 1,
+    videoList: [],
+    serverUrl: app.serverUrl
   },
   onLoad() {
-    if (app.globalData.userInfo) {
-      this.setData!({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true,
+    // 获取当前设备宽度
+    this.getDeviceInfo()
+    // 获取video list
+    this.getVideosList(this.data.page);
+  },
+  getDeviceInfo() {
+    const width: number = wx.getSystemInfoSync().screenWidth
+    this.setData!({ screenWidth: width})
+  },
+  onReachBottom() {
+    // 上拉刷新事件
+    let page: number = this.data.page
+    const totalPages: number = this.data.totalPages
+    if (page === totalPages) {
+      wx.showToast({
+        title: '已经没有视频啦...',
+        icon: 'none'
       })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = (res) => {
-        this.setData!({
-          userInfo: res,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData!({
-            userInfo: res.userInfo,
-            hasUserInfo: true
+      return
+    }
+    page = page + 1
+    this.getVideosList(page)
+  },
+  onPullDownRefresh() {
+    // 下拉刷新
+    wx.showNavigationBarLoading()
+    this.getVideosList(1)
+  },
+  getVideosList(page: number) {
+    const _this = this
+    wx.showLoading({
+      title: 'Loading...'
+    })
+    wx.request({
+      url: `${app.serverUrl}/video/showAll?page=${page}`,
+      method: 'GET',
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        console.log('video list', res.data)
+        wx.hideLoading()
+        wx.hideNavigationBarLoading()
+        wx.stopPullDownRefresh()
+        // 如果是第一页，重置videosList
+        if(page === 1) {
+          _this.setData!({
+            videoList: []
           })
         }
-      })
-    }
-  },
+        const resp: any = res.data
+        const currentList: Array<object> = _this.data.videoList
+        const videoList: Array<object> = resp.data.rows || []
 
-  getUserInfo(e: any) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData!({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
+        _this.setData!({
+          totalPages: resp.data.totalPages,
+          videoList: videoList.concat(currentList),
+          page: page
+        })
+      }
     })
   }
 })

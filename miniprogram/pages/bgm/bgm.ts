@@ -73,7 +73,7 @@ Page({
     wx.uploadFile({
       url: app.serverUrl + "/video/upload",
       formData:{
-        userId: app.userInfo.id,
+        userId: app.getGlobalUserInfo().id, //替换全局缓存: app.userInfo
         bgmId: bgmId,
         videoSeconds: duration,
         videoWidth: tempWidth,
